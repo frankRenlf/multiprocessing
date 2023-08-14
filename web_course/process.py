@@ -88,7 +88,7 @@ def loop(v, l, num):
 
 def golbal_val():
     l = mp.Lock()
-    v = mp.Value('i', 1)
+    v = mp.Value('i', 0)
     p1 = mp.Process(target=loop, args=(v, l, 1))
     p2 = mp.Process(target=loop, args=(v, l, 3))
     p1.start()
