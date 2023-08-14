@@ -54,12 +54,28 @@ def multiPro(n):
         v_arr[i] = q.get()
 
 
-if __name__ == "__main__":
+def compare_(n):
     t1_s = time.time()
-    normal(2)
+    normal(n)
     t1_e = time.time()
     print('time cost', t1_e - t1_s, 's')
     t2_s = time.time()
-    multiPro(2)
+    multiPro(n)
     t2_e = time.time()
     print('time cost', t2_e - t2_s, 's')
+
+
+def job(x):
+    return x * x
+
+
+def muti_pool():
+    pool = mp.Pool()
+    res = pool.map(job, range(10))
+    print(res)
+    res2 = pool.apply_async(job, (1, ))
+    print(res2.get())
+
+
+if __name__ == "__main__":
+    muti_pool()
