@@ -73,9 +73,25 @@ def muti_pool():
     pool = mp.Pool()
     res = pool.map(job, range(10))
     print(res)
-    res2 = pool.apply_async(job, (1, ))
+    res2 = pool.apply_async(job, (1,))
     print(res2.get())
 
 
+def loop(v, num):
+    for i in range(10):
+        v.value += num
+
+
+def golbal_val():
+    v = mp.Value('i', 1)
+    p1 = mp.Process(target=loop, args=(v, 1))
+    p2 = mp.Process(target=loop, args=(v, 3))
+    p1.start()
+    p2.start()
+    p1.join()
+    p2.join()
+    print(v.value)
+
+
 if __name__ == "__main__":
-    muti_pool()
+    golbal_val()
