@@ -79,7 +79,9 @@ def muti_pool():
 
 def loop(v, num):
     for i in range(10):
+        time.sleep(0.1)
         v.value += num
+        print(v.value)
 
 
 def golbal_val():
@@ -90,7 +92,6 @@ def golbal_val():
     p2.start()
     p1.join()
     p2.join()
-    print(v.value)
 
 
 if __name__ == "__main__":
