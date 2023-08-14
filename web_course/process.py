@@ -77,17 +77,20 @@ def muti_pool():
     print(res2.get())
 
 
-def loop(v, num):
+def loop(v, l, num):
+    l.acquire()
     for i in range(10):
         time.sleep(0.1)
         v.value += num
         print(v.value)
+    l.release()
 
 
 def golbal_val():
+    l = mp.Lock()
     v = mp.Value('i', 1)
-    p1 = mp.Process(target=loop, args=(v, 1))
-    p2 = mp.Process(target=loop, args=(v, 3))
+    p1 = mp.Process(target=loop, args=(v, l, 1))
+    p2 = mp.Process(target=loop, args=(v, l, 3))
     p1.start()
     p2.start()
     p1.join()
