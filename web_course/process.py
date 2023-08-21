@@ -75,6 +75,7 @@ def muti_pool():
     print(res)
     res2 = pool.apply_async(job, (1,))
     print(res2.get())
+    pool.close()
 
 
 def loop(v, l, num):
@@ -97,5 +98,52 @@ def golbal_val():
     p2.join()
 
 
+import multiprocessing
+
+
+# 定义一个函数，作为多进程任务
+def worker_function(task_id):
+    # print(f"Task {task_id} is being processed by process {multiprocessing.current_process().name}")
+    current_process = mp.current_process()
+    print(f"Process Name: {current_process.name}")
+    print(f"Process ID: {current_process.pid}")
+    res = 0
+    for i in range(1000):
+        res += i + i ** 2 + i ** 3
+
+
+def mul_test():  # 创建进程池，指定进程数量
+    num_processes = 4
+    pool = multiprocessing.Pool(processes=num_processes)
+
+    # 定义任务列表
+    tasks = [i for i in range(100, 120 + 1)]
+
+    # 使用进程池执行任务
+    pool.map(worker_function, (tasks))
+
+    # 关闭进程池，不再接受新任务
+    pool.close()
+
+    # 等待所有任务完成
+    pool.join()
+
+    print("All tasks have been completed.")
+
+
+def print_process_info():
+    current_process = mp.current_process()
+    print(f"Process Name: {current_process.name}")
+    print(f"Process ID: {current_process.pid}")
+
+
+#
 if __name__ == "__main__":
-    golbal_val()
+    # golbal_val()
+    # muti_pool()
+    # pool = mp.Pool()
+    # result = pool.map_async(func=fn_1, iterable=range(100))
+    # result2 = pool.map_async(func=fn_1, iterable=range(2))
+    # result.get()
+    # result2.get()
+    mul_test()
