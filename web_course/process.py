@@ -108,7 +108,7 @@ def worker_function(task_id):
     print(f"Process Name: {current_process.name}")
     print(f"Process ID: {current_process.pid}")
     res = 0
-    for i in range(1000):
+    for i in range(100000):
         res += i + i ** 2 + i ** 3
 
 
@@ -146,4 +146,6 @@ if __name__ == "__main__":
     # result2 = pool.map_async(func=fn_1, iterable=range(2))
     # result.get()
     # result2.get()
+    mp.set_start_method('spawn')
     mul_test()
+
