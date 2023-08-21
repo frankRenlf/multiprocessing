@@ -10,25 +10,23 @@
 """
 from multiprocessing import Queue, Process
 
-
 # if __name__ == "__main__":
 
-def f(q):
-    q.put([42, None, 'hello' * 10])
-# def f(q):
-#     q.put('X' * 1000000)
+from multiprocessing import Process, Pipe
+
+
+def f(conn, num):
+    conn.send([42, num, 'hello'])
+    conn.close()
 
 
 if __name__ == '__main__':
-    q = Queue()
-    p = Process(target=f, args=(q,))
+    parent_conn, child_conn = Pipe()
+    p = Process(target=f, args=(parent_conn, 1))
+    p2 = Process(target=f, args=(child_conn, 2))
     p.start()
-    print(q.get())  # prints "[42, None, 'hello']"
+    p2.start()
+    print(parent_conn.recv())  # prints "[42, None, 'hello']"
+    print(child_conn.recv())  # prints "[42, None, 'hello']"
     p.join()
-
-# if __name__ == '__main__':
-#     queue = Queue()
-#     p = Process(target=f, args=(queue,))
-#     p.start()
-#     p.join()  # this deadlocks
-#     obj = queue.get()
+    p2.join()
