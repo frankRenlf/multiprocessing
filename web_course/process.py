@@ -112,8 +112,8 @@ def worker_function(task_id):
         res += i + i ** 2 + i ** 3
 
 
-def mul_test():  # 创建进程池，指定进程数量
-    num_processes = 4
+def mul_test(n):  # 创建进程池，指定进程数量
+    num_processes = n
     pool = multiprocessing.Pool(processes=num_processes)
 
     # 定义任务列表
@@ -147,5 +147,5 @@ if __name__ == "__main__":
     # result.get()
     # result2.get()
     # mp.set_start_method('spawn')
-    # mul_test()
-    golbal_val()
+    mul_test(4)
+    # golbal_val()
