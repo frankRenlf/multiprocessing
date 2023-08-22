@@ -146,6 +146,6 @@ if __name__ == "__main__":
     # result2 = pool.map_async(func=fn_1, iterable=range(2))
     # result.get()
     # result2.get()
-    mp.set_start_method('spawn')
-    mul_test()
-
+    # mp.set_start_method('spawn')
+    # mul_test()
+    golbal_val()
