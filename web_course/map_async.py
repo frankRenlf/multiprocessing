@@ -36,10 +36,8 @@ def main():
     with multiprocessing.Pool() as pool:
         results_async = [pool.apply_async(square, (x,)) for x in data2]
         print("async prcessing")
-        result_apply_async = [result.get() for result in results_async]
+        result_apply_async = [result.get(timeout=3) for result in results_async]
         print("get success")
-    print("Apply Async result:", result_apply_async)
-
     print("Apply Async result:", result_apply_async)
 
 
