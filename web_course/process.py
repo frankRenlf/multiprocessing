@@ -104,9 +104,7 @@ import multiprocessing
 # 定义一个函数，作为多进程任务
 def worker_function(task_id):
     # print(f"Task {task_id} is being processed by process {multiprocessing.current_process().name}")
-    current_process = mp.current_process()
-    print(f"Process Name: {current_process.name}")
-    print(f"Process ID: {current_process.pid}")
+    print_process_info()
     res = 0
     for i in range(100000):
         res += i + i ** 2 + i ** 3
