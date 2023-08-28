@@ -29,19 +29,28 @@ def main():
     # 使用 map 方法
     with multiprocessing.Pool() as pool:
         print("map start")
-        result_map = pool.map(square, data)
-        print("map processing")
-        print("map success")
-    print("Map result:", result_map)
 
-    # 使用 apply_async 方法
-    with multiprocessing.Pool() as pool:
         print("async start")
         results_async = [pool.apply_async(square, (x,)) for x in data2]
         print("async prcessing")
+
+        result_map = pool.map(square, data)
+        print("map processing")
+        print("map success")
+
         result_apply_async = [result.get(timeout=3) for result in results_async]
         print("get success")
+
+    print("Map result:", result_map)
     print("Apply Async result:", result_apply_async)
+    # # 使用 apply_async 方法
+    # with multiprocessing.Pool() as pool:
+    #     print("async start")
+    #     results_async = [pool.apply_async(square, (x,)) for x in data2]
+    #     print("async prcessing")
+    #     result_apply_async = [result.get(timeout=3) for result in results_async]
+    #     print("get success")
+    # print("Apply Async result:", result_apply_async)
 
 
 if __name__ == "__main__":
