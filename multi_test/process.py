@@ -135,7 +135,7 @@ def print_process_info():
     print(f"Process ID: {current_process.pid}")
 
 
-#
+# well done, it seems that pull successfully
 if __name__ == "__main__":
     # golbal_val()
     # muti_pool()
